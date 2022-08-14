@@ -24,11 +24,9 @@ class Projects extends React.Component<ProjectsProps, ProjectsState> {
   render() {
     return (
       <div className="section">
-        <div className="level">
-          <Hero hasImage={false}>
-            <p className="title">Projects</p>
-          </Hero>
-        </div>
+        <Hero hasImage={false}>
+          <p className="title">Projects</p>
+        </Hero>
         <div className="content">
           {this.state.projects.map((item) => (
             <ProjectCard

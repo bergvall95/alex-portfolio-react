@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
+import { Authorization } from "../features/auth/Authorization";
 import Hero from "./Hero";
 
 interface GuestbookProps {}
@@ -21,6 +22,7 @@ class Guestbook extends React.Component<GuestbookProps, GuestbookState> {
             or bad dad jokes!
           </p>
         </Hero>
+        <Authorization />
       </React.Fragment>
     );
   }
