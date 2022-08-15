@@ -1,17 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectDisplayName, selectProduct } from "./spotifySlice";
+import styles from "./SpotifyExample.module.css";
 
-interface SpotifyExampleProps {}
+export function SpotifyExample() {
+  const displayName = useSelector(selectDisplayName);
+  const product = useSelector(selectProduct);
 
-interface SpotifyExampleState {}
-
-class SpotifyExample extends React.Component<
-  SpotifyExampleProps,
-  SpotifyExampleState
-> {
-  state = {};
-  render() {
-    return <div></div>;
-  }
+  return (
+    <div className={styles.column}>
+      {displayName && (
+        <div className={styles.row}>Logged in as: {displayName}</div>
+      )}
+      {product && (
+        <div className={styles.row}>Subscription type: {product}</div>
+      )}
+    </div>
+  );
 }
-
-export default SpotifyExample;

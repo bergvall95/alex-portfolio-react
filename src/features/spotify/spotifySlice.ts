@@ -18,7 +18,7 @@ const initialState: SpotifyState = {
 };
 
 export const spotifySlice = createSlice({
-  name: 'spotifyExample',
+  name: 'spotify',
   initialState,
   reducers: {
     setDisplayName: (state, action: PayloadAction<string>) => {

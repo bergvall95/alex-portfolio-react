@@ -16,7 +16,7 @@ const access_token = hashParams.access_token;
 const expires_in = hashParams.expires_in;
 removeHashParamsFromUrl();
 
-export function Authorization() {
+export function GitHubAuth() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const tokenExpiryDate = useSelector(selectTokenExpiryDate);
   const dispatch = useDispatch();
@@ -28,23 +28,20 @@ export function Authorization() {
       dispatch(setTokenExpiryDate(Number(expires_in)));
       dispatch<any>(setUserProfileAsync(access_token));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
-      <div>
-        {!isLoggedIn && (
-          <button
-            className="button"
-            aria-label="Log in using OAuth 2.0"
-            onClick={() => window.open(getAuthorizeHref(), "_self")}
-          >
-            Log in with Spotify
-          </button>
-        )}
-        {isLoggedIn && <div>Token expiry date: {tokenExpiryDate}</div>}
-      </div>
+    <div className="box">
+      {!isLoggedIn && (
+        <button
+          className="button"
+          aria-label="Log in via GitHub"
+          onClick={() => window.open(getAuthorizeHref(), "_self")}
+        >
+          Log in to GitHub
+        </button>
+      )}
+      {isLoggedIn && <div> welcome</div>}
     </div>
   );
 }
