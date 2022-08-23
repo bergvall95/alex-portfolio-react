@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  setLoggedIn,
-  setAccessToken,
-  setTokenExpiryDate,
-  selectIsLoggedIn,
-  selectTokenExpiryDate,
-} from "./authorizationSlice";
-import { setUserProfileAsync } from "../spotify/spotifySlice";
-import { getAuthorizeHref } from "../../oauthConfig";
+  selectGithubIsLoggedIn,
+  selectGithubTokenExpiryDate,
+  setGithubAccessToken,
+  setGithubLoggedIn,
+  setGithubTokenExpiryDate,
+} from "./githubAuthSlice";
+import { setGithubProfileAsync } from "./githubSlice";
+import { getAuthorizeHref, getGithubAuthHref } from "../../oauthConfig";
 import { getHashParams, removeHashParamsFromUrl } from "../../utils/hashUtils";
 
 const hashParams = getHashParams();
@@ -17,16 +17,16 @@ const expires_in = hashParams.expires_in;
 removeHashParamsFromUrl();
 
 export function GitHubAuth() {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const tokenExpiryDate = useSelector(selectTokenExpiryDate);
+  const isLoggedIn = useSelector(selectGithubIsLoggedIn);
+  const tokenExpiryDate = useSelector(selectGithubTokenExpiryDate);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (access_token) {
-      dispatch(setLoggedIn(true));
-      dispatch(setAccessToken(access_token));
-      dispatch(setTokenExpiryDate(Number(expires_in)));
-      dispatch<any>(setUserProfileAsync(access_token));
+      dispatch(setGithubLoggedIn(true));
+      dispatch(setGithubAccessToken(access_token));
+      dispatch(setGithubTokenExpiryDate(Number(expires_in)));
+      dispatch<any>(setGithubProfileAsync(access_token));
     }
   }, []);
 
@@ -36,12 +36,14 @@ export function GitHubAuth() {
         <button
           className="button"
           aria-label="Log in via GitHub"
-          onClick={() => window.open(getAuthorizeHref(), "_self")}
+          onClick={() => {
+            window.open(getGithubAuthHref(), "_self");
+          }}
         >
           Log in to GitHub
         </button>
       )}
-      {isLoggedIn && <div> welcome</div>}
+      {isLoggedIn && <div> welcome Token Expiry Date: {tokenExpiryDate}</div>}
     </div>
   );
 }

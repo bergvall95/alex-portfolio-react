@@ -1,49 +1,58 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../../app/store';
-import {
-  setAccessToken,
-  setLoggedIn
-} from '../auth/authorizationSlice';
+import { setGithubLoggedIn } from './githubAuthSlice';
 
-interface GithubAuthState{
-    username:string;
-    userEmail:string;
+
+
+
+interface GithubState {
+  githubDisplayName: string,
+  githubEmail: string
 }
 
-const initialState: GithubAuthState = {
-    username: '',
-    userEmail:'',
-}
+const initialState: GithubState = {
+  githubDisplayName: '',
+  githubEmail: '',
+};
 
 export const githubSlice = createSlice({
-    name: 'githubSlice',
-    initialState,
-    reducers:{
-        setUsername: (state, action: PayloadAction<string>)=>{
-            state.username = action.payload;
-        },
-        setUserEmail:(state,action:PayloadAction<string>)=>{
-            state.userEmail= action.payload;
-        },
+  name: 'github',
+  initialState,
+  reducers: {
+    setGithubDisplayName: (state, action: PayloadAction<string>) => {
+      state.githubDisplayName = action.payload;
     },
+    setGithubEmail: (state, action: PayloadAction<string>) => {
+      state.githubEmail = action.payload;
+    },
+  },
 });
 
-export const {setUsername, setUserEmail} = githubSlice.actions;
+export const { setGithubDisplayName, setGithubEmail } = githubSlice.actions;
 
-export const selectUsername = (state: RootState) => state.github.username;
-export const selectUserEmail = (state: RootState) => state.github.userEmail;
+export const selectGithubDisplayName = (state: RootState) => state.github.githubDisplayName;
+export const selectGithubEmail = (state: RootState) => state.github.githubEmail;
 
-export const setUserProfile = (accessToken: string): AppThunk => dispatch =>{
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + accessToken);
+export const setGithubProfileAsync = (accessToken: string): AppThunk => dispatch  => {
+  const myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + accessToken);
 
-    fetch("https://api.github.com/user",{
-        method: 'GET',
-        headers: myHeaders,
-    }).then(response => response.json())
+  fetch('https://api.spotify.com/v1/me', {
+    method: 'GET',
+    headers: myHeaders,
+  }).then(response => response.json())
     .then((data) => {
-        console.log(data);
-    })
-}
+      console.log(data);
+      dispatch(setGithubDisplayName(data.display_name ? data.display_name : data.id));
+      dispatch(setGithubEmail(data.product));
+    }).catch((error) => {
+      console.log(error);
+      if (error instanceof XMLHttpRequest) {
+        if (error.status === 401) {
+          dispatch(setGithubLoggedIn(false));
+        }
+      }
+    });
+};
 
 export default githubSlice.reducer;
