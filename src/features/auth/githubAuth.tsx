@@ -5,13 +5,22 @@ import {
   selectGithubTokenExpiryDate,
   setGithubAccessToken,
   setGithubLoggedIn,
-  setGithubTokenExpiryDate,
+  setGithubTokenExpiryDate
 } from "./githubAuthSlice";
 import { setGithubProfileAsync } from "./githubSlice";
-import { getAuthorizeHref, getGithubAuthHref } from "../../oauthConfig";
+import {
+  getAuthorizeHref,
+  getGithubAccessTokenHref,
+  getGithubAuthHref
+} from "../../oauthConfig";
 import { getHashParams, removeHashParamsFromUrl } from "../../utils/hashUtils";
+import { request } from "https";
+import { Http2ServerRequest } from "http2";
 
 const hashParams = getHashParams();
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const code = urlParams.get("code");
 const access_token = hashParams.access_token;
 const expires_in = hashParams.expires_in;
 removeHashParamsFromUrl();
@@ -22,6 +31,29 @@ export function GitHubAuth() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("hello");
+    console.log(code);
+
+    if (code) {
+      const authHref = getGithubAccessTokenHref(code);
+      console.log(authHref);
+      let data = fetch(authHref, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        mode: "no-cors",
+        cache: "no-cache"
+      })
+        //.then(response => response.json())
+        // .then(json => console.log(json))
+        .catch(error => {
+          console.log(error);
+        });
+      console.log(data);
+    }
+
     if (access_token) {
       dispatch(setGithubLoggedIn(true));
       dispatch(setGithubAccessToken(access_token));

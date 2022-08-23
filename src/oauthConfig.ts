@@ -24,9 +24,9 @@ export const getGithubAuthHref = (): string => {
 
 const githubAccessEndpoint = "https://github.com/login/oauth/access_token"
 
-export const getGithubAccessTokenHref = () : string => {
+export const getGithubAccessTokenHref = (code:string) : string => {
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   const redirectUri = process.env.REACT_APP_GITHUB_REDIRECT_URI;
-  
-  return `${githubAccessEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${githubScopes.join("%20")}&response_type=token`;
+  const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+  return `${githubAccessEndpoint}?client_id=${clientId}&code=${code}&client_secret=${clientSecret}&redirect_uri=${redirectUri}`;
 }
