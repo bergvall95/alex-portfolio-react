@@ -1,66 +1,61 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { selectGithubDisplayName, setGithubProfileAsync } from "./githubSlice";
+import { getHashParams, removeHashParamsFromUrl } from "../../utils/hashUtils";
+import { request } from "https";
+import { Http2ServerRequest } from "http2";
 import {
+  selectGithubAccessToken,
   selectGithubIsLoggedIn,
   selectGithubTokenExpiryDate,
   setGithubAccessToken,
   setGithubLoggedIn,
-  setGithubTokenExpiryDate
+  setGithubTokenExpiryDate,
 } from "./githubAuthSlice";
-import { setGithubProfileAsync } from "./githubSlice";
 import {
   getAuthorizeHref,
   getGithubAccessTokenHref,
-  getGithubAuthHref
+  getGithubAuthHref,
 } from "../../oauthConfig";
-import { getHashParams, removeHashParamsFromUrl } from "../../utils/hashUtils";
-import { request } from "https";
-import { Http2ServerRequest } from "http2";
+import { $CombinedState } from "redux";
+import { access } from "fs";
+import { selectAccessToken } from "./authorizationSlice";
 
-const hashParams = getHashParams();
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const code = urlParams.get("code");
-const access_token = hashParams.access_token;
-const expires_in = hashParams.expires_in;
-removeHashParamsFromUrl();
+async function getAccessToken(code: string) {
+  const authHref = getGithubAccessTokenHref(code);
+  let data = await fetch(authHref)
+    .then((response) => response.json())
+    .then((data) => data);
+
+  return data;
+}
 
 export function GitHubAuth() {
   const isLoggedIn = useSelector(selectGithubIsLoggedIn);
   const tokenExpiryDate = useSelector(selectGithubTokenExpiryDate);
+  const access_token = useSelector(selectGithubAccessToken);
+  const username = useSelector(selectGithubDisplayName);
   const dispatch = useDispatch();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+  removeHashParamsFromUrl();
 
   useEffect(() => {
-    console.log("hello");
-    console.log(code);
-
     if (code) {
       const authHref = getGithubAccessTokenHref(code);
-      console.log(authHref);
-      let data = fetch(authHref, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        mode: "no-cors",
-        cache: "no-cache"
-      })
-        //.then(response => response.json())
-        // .then(json => console.log(json))
-        .catch(error => {
-          console.log(error);
-        });
-      console.log(data);
+      let tokenData = getAccessToken(code);
+      tokenData.then((token) => {
+        if (token.token) {
+          dispatch(setGithubAccessToken(token.token));
+        }
+      });
     }
-
     if (access_token) {
       dispatch(setGithubLoggedIn(true));
-      dispatch(setGithubAccessToken(access_token));
-      dispatch(setGithubTokenExpiryDate(Number(expires_in)));
       dispatch<any>(setGithubProfileAsync(access_token));
     }
-  }, []);
+  }, [access_token]);
 
   return (
     <div className="box">
