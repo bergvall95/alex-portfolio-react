@@ -2,7 +2,7 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useState,
+  useState
 } from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -20,7 +20,7 @@ interface IThemeContext {
 }
 
 const defaultState = {
-  theme: "light",
+  theme: "light"
 };
 
 export const ThemeContext = createContext<IThemeContext>(defaultState);
@@ -29,23 +29,26 @@ function App() {
   const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
-    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+    setTheme(curr => (curr === "light" ? "dark" : "light"));
   };
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className="columns">
-        <div className="column is-half-desktop is-offset-one-quarter-desktop">
-          <NavBar></NavBar>
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/guestbook" element={<Guestbook />} />
-              <Route path="/*" element={<Lost />} />
-            </Routes>
+      <div className="app-container">
+        <div className="columns ">
+          <div className="column is-half-desktop is-offset-one-quarter-desktop">
+            <NavBar></NavBar>
+            <div className="container">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/guestbook" element={<Guestbook />} />
+                <Route path="/*" element={<Lost />} />
+              </Routes>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </ThemeContext.Provider>
   );
 }

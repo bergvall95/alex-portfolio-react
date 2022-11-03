@@ -43,10 +43,8 @@ export const setGithubProfileAsync =
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log("hi hello ");
         dispatch(setGithubDisplayName(data.login ? data.login : data.id));
-        dispatch(setGithubEmail(data.product));
+        dispatch(setGithubEmail(data.email));
       })
       .catch((error) => {
         console.log(error);

@@ -3,7 +3,7 @@
         "title":"Portfolio Website",
         "skills":["TypeScript","React","Bulma CSS", "GCP"],
         "desc":"You're looking at one! I made this website for fun after learning the basics of React. Love it so far!",
-        "link": "alexbergvall.io"
+        "link": "https://alexbergvall.io"
     },
     {
         "title":"E-commerce web-app",

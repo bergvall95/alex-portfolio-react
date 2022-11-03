@@ -18,7 +18,7 @@ class Guestbook extends React.Component<GuestbookProps, GuestbookState> {
   render() {
     return (
       <React.Fragment>
-        <Hero hasImage={false}>
+        <Hero>
           <p className="title">Guestbook</p>
           <p className="content">
             Leave a message. I like music recommendations, advice, video games,

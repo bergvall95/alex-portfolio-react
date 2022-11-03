@@ -11,17 +11,16 @@ class Home extends React.Component<HomeProps, HomeState> {
     return (
       <div className="is-desktop">
         <div className="section">
-          <Hero hasImage={true} image="https://picsum.photos/200/200">
+          <Hero image="https://picsum.photos/200/200">
             <p className="title">Alex Bergvall</p>
-            <p className="subtitle">Software Engineer/Professional Learner</p>
-            <p className="subtitle">trying to get 1% better every day</p>
+            <p className="subtitle">React Developer</p>
           </Hero>
         </div>
         <div className="section">
           <div className="content box">
             <p className="content is-white">
               Hi, I'm Alex Bergvall. I'm a software engineer for General Motors
-              in Austin. Welcome to the start of my portfolio project!
+              in Austin. Welcome to my portfolio!
             </p>
             <p className="content">
               I grew up in a small Texas town with my 4 brothers. Most of my

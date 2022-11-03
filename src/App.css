@@ -44,3 +44,35 @@
 #dark {
   background-color: #210342;
 } */
+
+Link{
+  text-decoration: none;
+  color:black;
+}
+
+.social-links{
+  padding:5px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.social-link{
+  padding:5px;
+}
+
+.app-container{
+  min-height: 100%;
+  margin-bottom:-50px;
+
+}
+
+.footer{
+  flex-shrink: 0;
+}
+
+html, body {
+  height: 100%;
+  margin:0;
+}
+

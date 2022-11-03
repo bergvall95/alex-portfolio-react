@@ -18,23 +18,23 @@ interface Project {
 
 class Projects extends React.Component<ProjectsProps, ProjectsState> {
   state = {
-    projects: projectsJson,
+    projects: projectsJson
   };
   formatProjects(projectsJson: Project[]) {}
   render() {
     return (
       <div className="section">
-        <Hero hasImage={false}>
+        <Hero>
           <p className="title">Projects</p>
         </Hero>
         <div className="content">
-          {this.state.projects.map((item) => (
+          {this.state.projects.map(item => (
             <ProjectCard
               title={item.title}
               skills={item.skills}
               desc={item.desc}
               link={item.link}
-            ></ProjectCard>
+            />
           ))}
         </div>
       </div>
