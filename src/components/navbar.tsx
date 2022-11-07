@@ -44,6 +44,12 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
                 <Link className="dropdown-item navbar-item" to="/projects">
                   Projects
                 </Link>
+                <Link className="dropdown-item navbar-item" to="/guestbook">
+                  Guestbook
+                </Link>
+                <Link className="dropdown-item navbar-item" to="/skillz">
+                  Skills
+                </Link>
               </div>
             </div>
           </div>
@@ -56,6 +62,12 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
             </Link>
             <Link className="navbar-item" to="/projects">
               Projects
+            </Link>
+            <Link className="navbar-item" to="/guestbook">
+              Guestbook
+            </Link>
+            <Link className="navbar-item" to="/skillz">
+              Skills
             </Link>
           </div>
 

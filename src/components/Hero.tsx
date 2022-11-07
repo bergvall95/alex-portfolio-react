@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./Hero.css";
 
 interface HeroProps {
   children: any;

@@ -22,7 +22,7 @@ class Guestbook extends React.Component<GuestbookProps, GuestbookState> {
           <p className="title">Guestbook</p>
           <p className="content">
             Leave a message. I like music recommendations, advice, video games,
-            or bad dad jokes!
+            and chess!
           </p>
         </Hero>
         <GitHubAuth></GitHubAuth>

@@ -15,15 +15,15 @@ class Footer extends React.Component<FooterProps, FooterState> {
         <div className="content has-text-centered">
           Thanks for stopping by!{" "}
           <div className="social-links">
-            <Link
-              to="https://www.linkedin.com/in/alex-bergvall/"
+            <a
+              href="https://www.linkedin.com/in/alex-bergvall/"
               className="social-link"
             >
               <FontAwesomeIcon icon={brands("linkedin")} size="lg" />
-            </Link>
-            <Link to="https://github.com/bergvall95" className="social-link">
+            </a>
+            <a href="https://github.com/bergvall95" className="social-link">
               <FontAwesomeIcon icon={brands("github")} size="lg" />
-            </Link>
+            </a>
           </div>
         </div>
         <div></div>
