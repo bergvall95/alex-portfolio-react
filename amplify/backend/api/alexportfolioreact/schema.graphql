@@ -1,12 +1,19 @@
-type Comment @model @auth(rules: [{allow: public}]) {
+type Blog @model @auth(rules: [{allow: public}]) {
   id: ID!
-  content: String
-  userID: ID! @index(name: "byUser")
+  name: String!
+  posts: [Post] @hasMany
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  username: String
-  avatar: AWSURL
-  Comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
-} 
+  title: String!
+  blog: Blog @belongsTo
+  comments: [Comment] @hasMany
+}
+
+type Comment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  post: Post @belongsTo
+  content: String!
+}
+ 

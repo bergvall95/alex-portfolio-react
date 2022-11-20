@@ -13,24 +13,28 @@ import Projects from "./components/Projects";
 import Guestbook from "./components/Guestbook";
 import Footer from "./components/footer";
 import Lost from "./components/lost";
+import { Amplify, API, graphqlOperation } from "aws-amplify";
+import awsconfig from "./aws-exports";
+
+const defaultState = {
+  theme: "light"
+};
 
 interface IThemeContext {
   theme: string;
   setTheme?: Dispatch<SetStateAction<string>>;
 }
 
-const defaultState = {
-  theme: "light"
-};
-
 export const ThemeContext = createContext<IThemeContext>(defaultState);
 
 function App() {
   const [theme, setTheme] = useState("light");
+  Amplify.configure(awsconfig);
 
   const toggleTheme = () => {
     setTheme(curr => (curr === "light" ? "dark" : "light"));
   };
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="app-container">

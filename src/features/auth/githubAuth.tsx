@@ -39,6 +39,7 @@ export function GitHubAuth() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
+  
   removeHashParamsFromUrl();
 
   useEffect(() => {
