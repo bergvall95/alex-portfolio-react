@@ -10,12 +10,12 @@ import {
   selectGithubTokenExpiryDate,
   setGithubAccessToken,
   setGithubLoggedIn,
-  setGithubTokenExpiryDate,
+  setGithubTokenExpiryDate
 } from "./githubAuthSlice";
 import {
   getAuthorizeHref,
   getGithubAccessTokenHref,
-  getGithubAuthHref,
+  getGithubAuthHref
 } from "../../oauthConfig";
 import { $CombinedState } from "redux";
 import { access } from "fs";
@@ -24,8 +24,8 @@ import { selectAccessToken } from "./authorizationSlice";
 async function getAccessToken(code: string) {
   const authHref = getGithubAccessTokenHref(code);
   let data = await fetch(authHref)
-    .then((response) => response.json())
-    .then((data) => data);
+    .then(response => response.json())
+    .then(data => data);
 
   return data;
 }
@@ -39,14 +39,13 @@ export function GitHubAuth() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
-  
+
   removeHashParamsFromUrl();
 
   useEffect(() => {
     if (code) {
-      const authHref = getGithubAccessTokenHref(code);
       let tokenData = getAccessToken(code);
-      tokenData.then((token) => {
+      tokenData.then(token => {
         if (token.token) {
           dispatch(setGithubAccessToken(token.token));
         }
@@ -68,7 +67,7 @@ export function GitHubAuth() {
             window.open(getGithubAuthHref(), "_self");
           }}
         >
-          Log in to GitHub
+          Log in via GitHub
         </button>
       )}
       {isLoggedIn && <div> welcome Token Expiry Date: {tokenExpiryDate}</div>}
