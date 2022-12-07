@@ -45,39 +45,43 @@
   background-color: #210342;
 } */
 
-Link{
+Link {
   text-decoration: none;
-  color:black;
+  color: black;
 }
 
-.social-links{
-  padding:5px;
+.social-links {
+  padding: 5px;
   margin: 5px;
   display: flex;
   justify-content: center;
 }
 
-.social-link{
-  padding:5px;
+.social-link {
+  padding: 5px;
 }
 
-.app-container{
+.app-container {
   min-height: 100vh;
-  margin-bottom:-150px;
-
 }
 
-.footer{
-  flex-shrink: 0;
+.footer {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgb(235, 195, 64);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  margin-bottom: -10px;
 }
 
-
-html{
+html {
   min-height: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
-body{
+body {
   flex-grow: 1;
 }

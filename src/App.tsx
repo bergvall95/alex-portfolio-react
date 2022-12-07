@@ -2,7 +2,7 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useState
+  useState,
 } from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -10,14 +10,14 @@ import NavBar from "./components/navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home";
 import Projects from "./components/Projects";
-import Guestbook from "./components/Guestbook";
+import { Guestbook } from "./components/Guestbook";
 import Footer from "./components/footer";
 import Lost from "./components/lost";
-import { Amplify, API, graphqlOperation } from "aws-amplify";
+import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
 
 const defaultState = {
-  theme: "light"
+  theme: "light",
 };
 
 interface IThemeContext {
@@ -32,7 +32,7 @@ function App() {
   Amplify.configure(awsconfig);
 
   const toggleTheme = () => {
-    setTheme(curr => (curr === "light" ? "dark" : "light"));
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
   return (
@@ -52,7 +52,9 @@ function App() {
           </div>
         </div>
       </div>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </ThemeContext.Provider>
   );
 }

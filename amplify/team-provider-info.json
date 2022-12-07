@@ -14,6 +14,12 @@
     "categories": {
       "api": {
         "alexportfolioreact": {}
+      },
+      "function": {
+        "alexportfolioreact60b1c276": {}
+      },
+      "auth": {
+        "alexportfolioreact": {}
       }
     }
   }

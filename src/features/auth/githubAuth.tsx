@@ -9,17 +9,9 @@ import {
   selectGithubIsLoggedIn,
   selectGithubTokenExpiryDate,
   setGithubAccessToken,
-  setGithubLoggedIn,
-  setGithubTokenExpiryDate
+  setGithubLoggedIn
 } from "./githubAuthSlice";
-import {
-  getAuthorizeHref,
-  getGithubAccessTokenHref,
-  getGithubAuthHref
-} from "../../oauthConfig";
-import { $CombinedState } from "redux";
-import { access } from "fs";
-import { selectAccessToken } from "./authorizationSlice";
+import { getGithubAccessTokenHref, getGithubAuthHref } from "../../oauthConfig";
 
 async function getAccessToken(code: string) {
   const authHref = getGithubAccessTokenHref(code);
@@ -70,7 +62,7 @@ export function GitHubAuth() {
           Log in via GitHub
         </button>
       )}
-      {isLoggedIn && <div> welcome Token Expiry Date: {tokenExpiryDate}</div>}
+      {isLoggedIn && <div> Welcome {username}, thanks for logging in! </div>}
     </div>
   );
 }

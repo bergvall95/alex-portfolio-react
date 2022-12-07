@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/api": "^5.0.4",
     "@aws-amplify/cli": "^10.4.0",
     "@aws-amplify/datastore": "^3.14.4",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
