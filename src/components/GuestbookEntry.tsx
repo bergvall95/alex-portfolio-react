@@ -1,3 +1,4 @@
+import { processCompositeKeys } from "@aws-amplify/datastore/lib-esm/util";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
@@ -28,60 +29,77 @@ interface GuestbookEntryProps {
 export default function GuestBookEntry<
   GuestBookEntryProps,
   GuestBookEntryState
->({ comment }: GuestbookEntryProps) {
+>({ comment, deleteComment }: GuestbookEntryProps) {
   const username = useSelector(selectGithubDisplayName);
   const userEmail = useSelector(selectGithubEmail);
   const isLoggedIn = useSelector(selectGithubIsLoggedIn);
   const date = new Date(comment.timestamp);
-  const handleDelete = () => {
-    console.log("Delete");
-    DataService.deleteComment(comment.id, comment.user.id);
-  };
 
   return (
-    <div>
-      <div className="box mb-2">
-        <article className="media">
-          <figure className="media-left">
-            <p className="image is-64x64">
-              <img
-                style={{ borderRadius: "5px" }}
-                src={comment.user.avatarUrl}
-              />
-            </p>
-          </figure>
-          <div className="media-content">
-            <div className="content">
-              <p
-                style={{
-                  display: "block",
-                  whiteSpace: "normal",
-                  wordBreak: "break-all",
-                }}
-              >
-                <strong>{comment.user.displayName}</strong>{" "}
-                <small>
-                  {date.toLocaleDateString() + " " + date.toLocaleTimeString()}
-                </small>
-                <br />
-                <p style={{ display: "block", wordWrap: "break-word" }}>
-                  {comment.text}
+    <div className="guestbook-entry-container">
+      <article className="media">
+        <figure
+          className="media-left"
+          style={{ marginLeft: "auto", marginTop: "5px" }}
+        >
+          <p className="image is-32x32">
+            <img style={{ borderRadius: "5px" }} src={comment.user.avatarUrl} />
+          </p>
+        </figure>
+        <div className="media-content">
+          <div className="content">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div>
+                <p
+                  style={{
+                    display: "block",
+                    whiteSpace: "normal",
+                    wordBreak: "break-all",
+                  }}
+                >
+                  <strong>{comment.user.displayName}</strong>
+
+                  <span style={{ display: "inline-block", width: "1em" }} />
+                  <small>
+                    {date.toLocaleDateString() +
+                      " " +
+                      date.toLocaleTimeString()}
+                  </small>
+                  <br />
+                  <p style={{ display: "block", wordWrap: "break-word" }}>
+                    {comment.text}
+                  </p>
                 </p>
-              </p>
+              </div>
+              <div>
+                {" "}
+                {(username === comment.user.displayName ||
+                  username === "bergvall95") && (
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <button
+                      style={{ border: "none" }}
+                      className="button is-small is-danger is-outlined"
+                      onClick={() => deleteComment(comment.id, comment.user.id)}
+                    >
+                      <span className="icon is-small">
+                        <FontAwesomeIcon icon={solid("x")} size="sm" />
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </article>
-        {isLoggedIn && "bergvall95" === username && (
-          <button
-            className="button is-small is-danger is-outlined mt-1"
-            onClick={handleDelete}
-          >
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={solid("trash")} size="lg" />
-            </span>
-            <span>Delete</span>
-          </button>
-        )}
+        </div>
+      </article>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            marginTop: "10px",
+            borderBottom: "1px solid lightgray",
+            width: "90%",
+          }}
+        ></div>
       </div>
     </div>
   );

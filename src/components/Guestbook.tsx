@@ -12,6 +12,7 @@ import Hero from "./Hero";
 // TODO: connect to redux store to get user info and login status
 export const Guestbook = (props: any) => {
   const [comments, setComments] = React.useState<Comment[]>([]);
+  const [deleted, setDeleted] = React.useState<boolean>(false);
   const isLoggedIn = useSelector(selectGithubIsLoggedIn);
   const displayName = useSelector(
     (state: RootState) => state.github.githubDisplayName
@@ -22,34 +23,17 @@ export const Guestbook = (props: any) => {
   const [value, setValue] = React.useState<string>("");
 
   React.useEffect(() => {
-    let newComment: Comment = {
-      id: "0",
-      text: "This is a test comment",
-      timestamp: new Date().toISOString(),
-      user: {
-        id: "0",
-        displayName: "bergvall95",
-        email: "bergvall95@gmail.com",
-        avatarUrl: "https://avatars.githubusercontent.com/u/10101138?v=4",
-        profileUrl: "https://github.com/bergvall95",
-      },
-    };
-
-    //DataService.createComment(newComment);
     DataService.getAllComments().then((comments) => {
       setComments(comments);
     });
-
-    return () => {
-      setComments([]);
-    };
-  }, [setComments]);
+  }, [deleted]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
 
   const handleSubmit = (e: React.MouseEvent) => {
+    setValue("");
     let comment: Comment = {
       id: DataService.generateGuid(),
       text: value,
@@ -64,13 +48,17 @@ export const Guestbook = (props: any) => {
     };
     console.log(comment);
     DataService.createComment(comment);
-    setComments([...comments, comment]);
+    setComments([comment, ...comments]);
   };
 
   const deleteComment = (id: string, userId: string) => {
-    DataService.deleteComment(id, userId);
+    setDeleted(!deleted);
+    console.log("Deleted here");
+    console.log(comments.filter((comment) => comment.id !== id));
     setComments(comments.filter((comment) => comment.id !== id));
+    DataService.deleteComment(id, userId);
   };
+
   return (
     <div className="is-desktop">
       <div className="section">
@@ -82,31 +70,43 @@ export const Guestbook = (props: any) => {
           </p>
         </Hero>
       </div>
+      <div className="box mb-6">
+        <GitHubAuth></GitHubAuth>
 
-      <GitHubAuth></GitHubAuth>
-      {/* if the user is logged in, we display an input box to allow them to comment and a submit button to submit the comment*/}
+        {isLoggedIn && (
+          <div>
+            <textarea
+              className="textarea mb-1"
+              value={value}
+              maxLength={140}
+              placeholder="Start typing here..."
+              onChange={handleOnChange}
+              onSubmit={(e) => {}}
+              rows={2}
+              style={{ resize: "none" }}
+            />
 
-      {isLoggedIn && (
-        <div>
-          <textarea
-            className="textarea mb-1"
-            maxLength={240}
-            placeholder="Write anything!"
-            onChange={handleOnChange}
-            onSubmit={(e) => {}}
-          />
-          <button
-            onClick={(e) => handleSubmit(e)}
-            className="button is-primary m-1 mb-2"
-          >
-            Submit
-          </button>
-        </div>
-      )}
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="button is-link mt-1"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
-      {comments.map((comment) => (
-        <GuestbookEntry deleteComment={deleteComment} comment={comment} />
-      ))}
+      <div className="comments">
+        {comments ? (
+          comments.map((comment) => (
+            <GuestbookEntry deleteComment={deleteComment} comment={comment} />
+          ))
+        ) : (
+          <div>Failed to fetch comments :/ </div>
+        )}
+      </div>
     </div>
   );
 };

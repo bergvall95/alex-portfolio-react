@@ -85,3 +85,8 @@ html {
 body {
   flex-grow: 1;
 }
+
+.guestbook-entry-container {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}

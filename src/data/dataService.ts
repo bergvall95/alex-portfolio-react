@@ -60,7 +60,9 @@ export namespace DataService {
   };
 
   export const getAllComments = (): Promise<Comment[]> => {
-    return fetch(baseUrl + "/comments").then((response) => response.json());
+    return fetch(baseUrl + "/comments")
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
   };
 
   export const getCommentsByUserId = (id: number): Promise<Comment[]> => {

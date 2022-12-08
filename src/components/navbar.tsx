@@ -17,10 +17,12 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
     let classes = "dropdown";
     classes += this.state.isClicked === true ? " is-active" : "";
     return (
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav
+        className="navbar is-spaced"
+        role="navigation"
+        aria-label="main navigation"
+      >
         <div className="navbar-brand">
-          <span className="navbar-item "></span>
-
           <div className="dropdown is-hoverable">
             <div className="dropdown-trigger">
               <a
@@ -55,8 +57,8 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
           </div>
         </div>
 
-        <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-start">
+        <div className="navbar-menu" style={{ justifyContent: "center" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <Link className="navbar-item" to="/">
               Home
             </Link>
@@ -70,8 +72,6 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
               Skills
             </Link>
           </div>
-
-          <div className="navbar-end"></div>
         </div>
       </nav>
     );
