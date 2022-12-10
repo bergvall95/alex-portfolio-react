@@ -15,6 +15,8 @@ import Footer from "./components/footer";
 import Lost from "./components/lost";
 import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
+import Skills from "./components/Skills";
+import Experience from "./components/Experience";
 
 const defaultState = {
   theme: "light",
@@ -46,6 +48,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/guestbook" element={<Guestbook />} />
+                <Route path="/experience" element={<Experience />} />
                 <Route path="/*" element={<Lost />} />
               </Routes>
             </div>

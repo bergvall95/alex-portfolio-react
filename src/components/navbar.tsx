@@ -6,6 +6,8 @@ interface NavBarProps {}
 
 interface NavBarState {}
 
+const RESUME_LINK =
+  "https://docs.google.com/document/d/1gzacHqFc-NfhgDDP8g7jf5g8lRDc0Ewm/edit?usp=sharing&ouid=115288814253044666717&rtpof=true&sd=true";
 class NavBar extends React.Component<NavBarProps, NavBarState> {
   state = { isClicked: false };
 
@@ -41,17 +43,21 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
             <div className="dropdown-menu" id="dropdown-menu" role="menu">
               <div className="dropdown-content">
                 <Link className="dropdown-item navbar-item" to="/">
-                  Home
+                  home
                 </Link>
                 <Link className="dropdown-item navbar-item" to="/projects">
-                  Projects
+                  projects
                 </Link>
                 <Link className="dropdown-item navbar-item" to="/guestbook">
-                  Guestbook
+                  guestbook
                 </Link>
-                <Link className="dropdown-item navbar-item" to="/skillz">
-                  Skills
+                <Link className="dropdown-item navbar-item" to="/experience">
+                  experience
                 </Link>
+                <a className="navbar-item" href={RESUME_LINK} target="_blank">
+                  {" "}
+                  resume
+                </a>
               </div>
             </div>
           </div>
@@ -60,17 +66,21 @@ class NavBar extends React.Component<NavBarProps, NavBarState> {
         <div className="navbar-menu" style={{ justifyContent: "center" }}>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Link className="navbar-item" to="/">
-              Home
+              home
             </Link>
             <Link className="navbar-item" to="/projects">
-              Projects
+              projects
             </Link>
             <Link className="navbar-item" to="/guestbook">
-              Guestbook
+              guestbook
             </Link>
-            <Link className="navbar-item" to="/skillz">
-              Skills
+            <Link className="navbar-item" to="/experience">
+              experience
             </Link>
+            <a className="navbar-item" target="_blank" href={RESUME_LINK}>
+              {" "}
+              resume
+            </a>
           </div>
         </div>
       </nav>

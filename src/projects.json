@@ -1,21 +1,26 @@
 [
-    {
-        "title":"Portfolio Website",
-        "skills":["TypeScript","React","Bulma CSS", "GCP"],
-        "desc":"You're looking at one! I made this website for fun after learning the basics of React. Love it so far!",
-        "link": "https://www.alexbergvall.io"
-    },
-    {
-        "title":"E-commerce web-app",
-        "skills":["TypeScript","Angular","Bootstrap CSS", "Firebase"],
-        "desc":"A full e-commerce site I built when I learned Angular.",
-        "link":"https://organic-shop-b3437.web.app/"
-    },
-    {
-        "title":"Sorting Algorithm visualizer",
-        "skills":["TypeScript","Angular","Bootstrap CSS", "Firebase", "Data Structures & Algorithms"],
-        "desc":"I made a small algorithm visualizer to brush up on Angular and DS&A skills",
-        "link":"https://alex-sorting-visualizer.web.app"
-    }
-    
+  {
+    "title": "Portfolio Website",
+    "skills": ["TypeScript", "React", "Bulma CSS", "AWS EC2", "Docker", ""],
+    "desc": "You're looking at one! I made this website for fun after learning the basics of React. Love it so far!",
+    "link": "https://www.alexbergvall.io"
+  },
+  {
+    "title": "E-commerce web-app",
+    "skills": ["TypeScript", "Angular", "Bootstrap CSS", "Firebase"],
+    "desc": "A full e-commerce site I built when I learned Angular.",
+    "link": "https://organic-shop-b3437.web.app/"
+  },
+  {
+    "title": "Sorting Algorithm visualizer",
+    "skills": [
+      "TypeScript",
+      "Angular",
+      "Bootstrap CSS",
+      "Firebase",
+      "Data Structures & Algorithms"
+    ],
+    "desc": "I made a small algorithm visualizer to brush up on Angular and DS&A skills",
+    "link": "https://alex-sorting-visualizer.web.app"
+  }
 ]

@@ -23,7 +23,8 @@ export const getGithubAuthHref = (): string => {
 };
 
 const githubAccessEndpoint1 = "https://github.com/login/oauth/access_token";
-const gatekeeperAccessEndpoint = "http://ec2-35-173-232-59.compute-1.amazonaws.com:9999/authenticate/";
+const gatekeeperAccessEndpoint = "http://localhost:9999/authenticate/";
+//const gatekeeperAccessEndpoint = "http://ec2-35-173-232-59.compute-1.amazonaws.com:9999/authenticate/";
 //const gatekeeperAccessEndpoint = "http://github.com/login/oauth/access_token";
 
 export const getGithubAccessTokenHref = (code: string): string => {
